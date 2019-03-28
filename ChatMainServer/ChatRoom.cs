@@ -1,0 +1,59 @@
+using System;
+using MongoDB.Bson;
+using System.Collections;
+
+
+namespace ChatMainServer{
+    public class ChatRoom{
+        private ObjectId _id;
+        private string name;
+        private ArrayList connectedUsers;
+        private ArrayList chatHistory;
+        public ChatRoom(string name){
+            this._id = ObjectId.GenerateNewId();
+            this.name = name;
+            this.connectedUsers = new ArrayList();
+            this.chatHistory = new ArrayList();
+            
+            Console.WriteLine("New Chat Room Created");
+        }
+
+        public ObjectId Id{
+            get { return this._id;}
+            set { this._id = value;}
+        }
+
+        public string Name  {
+            get {return this.name;}
+            set { this.name = value; }
+        }
+
+
+        public bool AddUser(ChatUser chatUser){
+            this.connectedUsers.Add(chatUser);
+            Console.WriteLine("New user added to the chat room");
+            return true;
+        }
+
+        
+
+
+
+
+        public void PrintUserList(){
+            foreach(ChatUser user in this.connectedUsers) Console.WriteLine(user.Username);         
+        }
+
+
+        public ArrayList ChatHistory{
+            get { return this.chatHistory;}
+            set { this.chatHistory = value;}
+        }
+
+
+        public ArrayList ConnectedUsers{
+            get { return this.ConnectedUsers;}
+            set { this.ConnectedUsers = value;}
+        }
+    }
+}
