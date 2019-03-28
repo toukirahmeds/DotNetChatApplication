@@ -1,0 +1,11 @@
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\bin\Debug\netcoreapp2.0\ChatMainServer.deps.json
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\bin\Debug\netcoreapp2.0\ChatMainServer.runtimeconfig.json
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\bin\Debug\netcoreapp2.0\ChatMainServer.runtimeconfig.dev.json
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\bin\Debug\netcoreapp2.0\ChatMainServer.dll
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\bin\Debug\netcoreapp2.0\ChatMainServer.pdb
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\obj\Debug\netcoreapp2.0\ChatMainServer.csprojResolveAssemblyReference.cache
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\obj\Debug\netcoreapp2.0\ChatMainServer.csproj.CoreCompileInputs.cache
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\obj\Debug\netcoreapp2.0\ChatMainServer.AssemblyInfoInputs.cache
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\obj\Debug\netcoreapp2.0\ChatMainServer.AssemblyInfo.cs
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\obj\Debug\netcoreapp2.0\ChatMainServer.dll
+C:\Users\toukir.shuva\Desktop\cs_exam\DotNetChatApplication\ChatMainServer\obj\Debug\netcoreapp2.0\ChatMainServer.pdb
