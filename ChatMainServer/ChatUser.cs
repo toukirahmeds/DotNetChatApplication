@@ -12,12 +12,19 @@ namespace ChatMainServer{
             this.username = user.Username;
         }
 
+        public ChatUser(ObjectId id, string username){
+            this._id = id;
+            this.username = username;
+        }
+
         public ObjectId Id{
             get  {return this._id;}
+            set { this._id = value;}
         }
 
         public string Username{
             get { return this.username;}
+            set { this.username = value;}
         }
     }
 }

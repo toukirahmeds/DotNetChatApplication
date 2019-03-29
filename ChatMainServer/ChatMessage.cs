@@ -1,20 +1,21 @@
 using System;
-
+using MongoDB.Bson;
 
 namespace ChatMainServer{
     public class ChatMessage{
         
-        private string userId, message;
+        private ObjectId userId;
+        private string message;
         private DateTime messageTime;
 
-        public ChatMessage(string userId, string message){
-           
+        public ChatMessage(ObjectId userId, string message){
             this.userId = userId;
             this.message =  message;
         }
 
-        public string UserId{
+        public ObjectId UserId{
             get { return this.userId;}
+            set { this.userId = value;}
         }
 
         public string Message{
@@ -23,6 +24,7 @@ namespace ChatMainServer{
 
         public DateTime MessageTime{
             get { return this.messageTime;}
+            set { this.messageTime = value;}
         }
     }
 }

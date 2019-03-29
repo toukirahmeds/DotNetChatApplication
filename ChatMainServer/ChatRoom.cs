@@ -1,5 +1,7 @@
 using System;
 using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Driver;
 using System.Collections;
 
 
@@ -29,8 +31,8 @@ namespace ChatMainServer{
         }
 
 
-        public bool AddUser(ChatUser chatUser){
-            this.connectedUsers.Add(chatUser);
+        public bool AddUser(User user){
+            this.connectedUsers.Add( new ChatUser( user ) );
             Console.WriteLine("New user added to the chat room");
             return true;
         }
@@ -44,6 +46,10 @@ namespace ChatMainServer{
             foreach(ChatUser user in this.connectedUsers) Console.WriteLine(user.Username);         
         }
 
+        public ArrayList UserList{
+            get { return this.connectedUsers;}
+        }
+
 
         public ArrayList ChatHistory{
             get { return this.chatHistory;}
@@ -52,8 +58,15 @@ namespace ChatMainServer{
 
 
         public ArrayList ConnectedUsers{
-            get { return this.ConnectedUsers;}
-            set { this.ConnectedUsers = value;}
+            get { return this.connectedUsers;}
+            set { this.connectedUsers = value;}
+        }
+
+        public bool HasUser(string username){
+            foreach(ChatUser user in this.connectedUsers){
+                if(user.Username == username) return true;
+            }
+            return false;
         }
     }
 }
