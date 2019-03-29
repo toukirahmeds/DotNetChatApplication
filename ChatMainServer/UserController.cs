@@ -34,8 +34,7 @@ namespace ChatMainServer{
             var mq = Configs.userCollection.Find(new BsonDocument(){
                 {"Username", username}
             }).FirstOrDefault();
-            Console.WriteLine(BsonSerializer.Deserialize<User>(mq));
-            return BsonSerializer.Deserialize<User>(mq);
+            return new User( mq["Username"].ToString(), mq["Password"].ToString() );
         }
     }
 }

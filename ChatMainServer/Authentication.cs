@@ -6,14 +6,6 @@ using MongoDB.Driver;
 
 namespace ChatMainServer{
     public static class Authentication{
-        
-
-
-        
-
-
-        
-
         public static bool SignIn(string username, string password){
             var user = Configs.userCollection.Find(new BsonDocument(){
                 {"Username" , username}

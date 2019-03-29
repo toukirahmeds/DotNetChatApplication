@@ -17,7 +17,6 @@ namespace ChatMainServer{
             this.connectedUsers = new ArrayList();
             this.chatHistory = new ArrayList();
             
-            Console.WriteLine("New Chat Room Created");
         }
 
         public ObjectId Id{
@@ -33,12 +32,14 @@ namespace ChatMainServer{
 
         public bool AddUser(User user){
             this.connectedUsers.Add( new ChatUser( user ) );
-            Console.WriteLine("New user added to the chat room");
             return true;
         }
 
         
-
+        public bool AddChatMessage( ObjectId userId, string message ){
+            this.chatHistory.Add( new ChatMessage( userId, message) );
+            return true;
+        }
 
 
 

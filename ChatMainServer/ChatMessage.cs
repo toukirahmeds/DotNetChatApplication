@@ -11,6 +11,7 @@ namespace ChatMainServer{
         public ChatMessage(ObjectId userId, string message){
             this.userId = userId;
             this.message =  message;
+            this.messageTime = DateTime.Now;
         }
 
         public ObjectId UserId{
@@ -20,6 +21,7 @@ namespace ChatMainServer{
 
         public string Message{
             get { return this.message;}
+            set { this.message = value;}
         }
 
         public DateTime MessageTime{

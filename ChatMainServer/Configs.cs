@@ -10,6 +10,9 @@ namespace ChatMainServer{
         public static IMongoCollection<BsonDocument> userCollection;
         public static IMongoCollection<BsonDocument> chatRoomCollection;
         public static ConnectionFactory rabbitConnectionFactory;
+        public static string RabbitMQChatKey = "ChatKey";
+
+        public static IConnection rabbitConnection;
 
 
         public static void MongoConnect(){
@@ -22,6 +25,7 @@ namespace ChatMainServer{
 
         public static void RabbitMQConnect(){
             Configs.rabbitConnectionFactory = new ConnectionFactory(){ HostName = "localhost" };
+            Configs.rabbitConnection = Configs.rabbitConnectionFactory.CreateConnection();
             Console.WriteLine("Connected to RabbitMQ Server.");
         }
 
