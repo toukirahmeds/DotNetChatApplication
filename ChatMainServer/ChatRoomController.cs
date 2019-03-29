@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -11,6 +12,8 @@ using RabbitMQ.Client;
 namespace ChatMainServer{
     
     public static class ChatRoomController{
+        public static string space = "\t\t\t";
+        public static string doubleSpace = "\t\t\t\t\t\t\t\t\t\t";
         public static ChatRoom CreateChatRoom(string name){
             var foundChatRoom = Configs.chatRoomCollection.Find(new BsonDocument(){
                 { "Name", name }
@@ -73,6 +76,12 @@ namespace ChatMainServer{
         }
 
         
+        public static void PrintChatMessage(User user, string message){
+            Console.WriteLine(space + "============================================");
+            Console.WriteLine(space + "SENDER : {0}", user.Username);
+            Console.WriteLine(space + "MESSAGE TEXT : {0}", message);
+            Console.WriteLine(space + "=============================================");
+        }
 
 
         public static void SendMessage(this User user, ChatRoom cr, string message){
@@ -89,7 +98,9 @@ namespace ChatMainServer{
                     );
 
                     var body = Encoding.UTF8.GetBytes(message);
+                    PrintChatMessage(user, message);
                     foreach(ChatUser cu in cr.ConnectedUsers){
+                        // Console.WriteLine(cu.ToBsonDocument());
                         if(user.Id.ToString().CompareTo(cu.UserId.ToString()) != 0){
                             channel.BasicPublish(
                                 exchange : "",
@@ -102,6 +113,8 @@ namespace ChatMainServer{
                         }
                             
                     }
+
+                    channel.Close();
                     
                     cr.AddChatMessage( user.Id, message );
                     UpdateChatRoom(cr);
@@ -111,8 +124,51 @@ namespace ChatMainServer{
                 throw (new ChatRoomException("User do not belong to this chat room."));
             }
             
-            
-            
+        }
+
+        public static string getMessageString(string customSpace, string identifier, string username, string messageTime, string messageType, string message){
+            string messageString = customSpace + "===========================================\n";
+            messageString += customSpace + identifier + " : " + username + "\n";
+            messageString += customSpace + "Message Time : "+ messageTime.ToString() + "\n";
+            messageString += customSpace + "Message Type : " + messageType + "\n";
+            messageString += customSpace + "Message Text : " + message + "\n"; 
+            messageString += customSpace + "===========================================\n";
+
+            return messageString;
+        }
+
+
+        public static void DownloadChatHistory(this User user){
+            string chatHistory = space+" ***********CHAT HISTORY FOR : "+user.Username.ToString()+"*****************\n";
+            string identifier = "";
+            string customSpace = "";
+            var filter = Builders<BsonDocument>.Filter.ElemMatch(
+                "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
+            );
+
+            var userChatRoomList = Configs.chatRoomCollection.Find(filter).ToList();
+            Console.WriteLine();
+            Console.WriteLine(userChatRoomList);
+            userChatRoomList.ForEach((elem)=>{
+                // Console.WriteLine(elem["ChatHistory"]);
+                chatHistory += "----------- CHAT ROOM : "+ elem["Name"] + "\n\n";
+                elem["ChatHistory"].AsBsonArray.ToList().ForEach((chatElem)=>{
+                    Console.WriteLine(chatElem);
+                    if( chatElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
+                        identifier = "SENDER";
+                        customSpace = space;
+                    }else{
+                        identifier = "RECEIVER";
+                        customSpace = doubleSpace;
+                    }
+                    chatHistory += getMessageString( customSpace, identifier, user.Username.ToString(), chatElem["MessageTime"].ToString(), "TEXT", chatElem["Message"].ToString());
+                });
+                chatHistory += "\n\n\n\n";
+            });
+            chatHistory += space+" **********END OF CHAT HISTORY****************\n";
+
+            Console.WriteLine(chatHistory);
+            File.WriteAllText("history.txt", chatHistory);
         }
     }
     

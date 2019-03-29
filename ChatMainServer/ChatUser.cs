@@ -9,6 +9,8 @@ namespace ChatMainServer{
         private ObjectId userId;
         private string username;
 
+        public static string space = "\t\t\t\t\t\t\t";
+
         public ChatUser(User user){
             this.userId = user.Id;
             this.username = user.Username;
@@ -30,7 +32,12 @@ namespace ChatMainServer{
             set { this.userId = value;}
         }
 
-
+        public static void printChatMessage(ChatUser cu, string message){
+                Console.WriteLine(space + "============================================");
+                Console.WriteLine(space + "RECEIVER : {0}", cu.Username);
+                Console.WriteLine(space + "MESSAGE TEXT : {0}", message);
+                Console.WriteLine(space + "=============================================");
+        }
         public void setMessageReceiver(){
             ConnectionFactory f = new ConnectionFactory(){HostName = "localhost"};
             using(IConnection con = f.CreateConnection())
@@ -47,7 +54,8 @@ namespace ChatMainServer{
                 consumer.Received += (model, ea)=>{
                     var body = ea.Body;
                     string message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine("Message received : {0}", message);
+                    printChatMessage(this, message);
+                    channel.Close();
                 };
 
                 channel.BasicConsume(
@@ -57,7 +65,6 @@ namespace ChatMainServer{
                 );
 
                 Console.ReadKey();
-
             }
         }
     }
