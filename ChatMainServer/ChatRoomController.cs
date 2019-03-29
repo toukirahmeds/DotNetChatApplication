@@ -169,13 +169,13 @@ namespace ChatMainServer{
 
 
         public async static void DownloadChatHistory(this User user){
-            
+            Console.WriteLine("CHAT HISTORY DOWNLOAD FOR : {0}", user.Username.ToString());
             var filter = Builders<BsonDocument>.Filter.ElemMatch(
                 "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
             );
 
-            var userChatHistory = Configs.chatRoomCollection.Find(filter).ToList();
-            string chatHistory = generateChatHistoryString(user, userChatHistory);
+            var userChatHistory = await Configs.chatRoomCollection.FindAsync(filter);
+            string chatHistory = generateChatHistoryString(user, userChatHistory.ToList());
 
             string directoryName = "./DOCUMENTS/"+ user.Username.ToString();
             Directory.CreateDirectory(directoryName);
@@ -183,6 +183,7 @@ namespace ChatMainServer{
             Task<bool> t =  WriteToFile(filePath, chatHistory);
 
             bool fileWriteSuccess = await t;
+            Console.WriteLine("CHAT HISTORY DOWNLOAD COMPLETED");
         }
     }
     

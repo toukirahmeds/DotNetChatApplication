@@ -1,18 +1,39 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "4bdd99d0942e3bfb5440c1cc3829d701786fe020"
+    "signature": "7063d3b97fa5ef278943d4d726366e493ed47268"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "ChatMainServer/1.0.0": {
         "dependencies": {
+          "AWSSDK.Core": "3.3.100.2",
+          "AWSSDK.S3": "3.3.101",
           "MongoDB.Driver": "2.8.0",
           "RabbitMQ.Client": "5.1.0"
         },
         "runtime": {
           "ChatMainServer.dll": {}
+        }
+      },
+      "AWSSDK.Core/3.3.100.2": {
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.100.2"
+          }
+        }
+      },
+      "AWSSDK.S3/3.3.101": {
+        "dependencies": {
+          "AWSSDK.Core": "3.3.100.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.S3.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.101.0"
+          }
         }
       },
       "DnsClient/1.2.0": {
@@ -1011,6 +1032,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AWSSDK.Core/3.3.100.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g+DCqrYRxNYv+1K8i7rNDLj4Q6U25g7e8a4z9e2GOUuTZmIHqUFRJFssQPiF+1rY8rTsaHCw0eOoQONmYuC4qg==",
+      "path": "awssdk.core/3.3.100.2",
+      "hashPath": "awssdk.core.3.3.100.2.nupkg.sha512"
+    },
+    "AWSSDK.S3/3.3.101": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RGVygeZ4oZfzHWteDXlDB28D/nVk9+6YIyS3/SDWBitkA095VnIDkceMXWQc12xifRwd0zVXG+irXmfx9t9OPA==",
+      "path": "awssdk.s3/3.3.101",
+      "hashPath": "awssdk.s3.3.3.101.nupkg.sha512"
     },
     "DnsClient/1.2.0": {
       "type": "package",

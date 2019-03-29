@@ -50,7 +50,9 @@ namespace ChatMainServer
             ChatRoom c1 = ChatRoomController.GetChatRoomUsingName("Room 1");
             // c1.AddChatRoomUser(u1);
             // u1.SendMessage(c1, "Hello Everyone");
-            u1.DownloadChatHistory();
+            // u1.DownloadChatHistory();
+            S3BucketController.S3CreateBucket();
+
         }
     }
 }
