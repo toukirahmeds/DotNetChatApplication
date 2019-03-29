@@ -14,7 +14,6 @@ namespace ChatMainServer{
             this.username = username;
             this.password = password;
             this.isLoggedIn = false;
-            this.setMessageReceiver();
         }
 
         public ObjectId Id{
@@ -40,38 +39,6 @@ namespace ChatMainServer{
         public void Display(){
             Console.WriteLine("username : {0}, password : {1}", this.Username, this.Password);
         }
-
-        public void setMessageReceiver(){
-            using(IConnection connection = Configs.rabbitConnectionFactory.CreateConnection()){
-                using(IModel channel = connection.CreateModel()){
-                channel.QueueDeclare(
-                    queue : Configs.RabbitMQChatKey,
-                    durable : false,
-                    autoDelete : false,
-                    exclusive : false,
-                    arguments : null
-                );
-
-                EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
-
-                consumer.Received += (model, ea)=>{
-                    var body = ea.Body;
-                    var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine("Received Message by {0} from {1} : {2}", this.username, "MyChatRoom", message);
-                };
-
-                Console.WriteLine("User : "+this.Username.ToString() + " connecting to the rabbitmq server");
-
-                channel.BasicConsume(
-                    queue : Configs.RabbitMQChatKey,
-                    autoAck : true,
-                    consumer : consumer
-                );
-
-
-            }//channel scope ends here
-            }
-            
-        }
     }
+        
 }

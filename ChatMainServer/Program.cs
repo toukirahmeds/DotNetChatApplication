@@ -1,6 +1,7 @@
 ﻿using System;
-
-
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
 
 namespace ChatMainServer
 {
@@ -32,6 +33,8 @@ namespace ChatMainServer
                     
                 }
         }
+
+        
         
         
         static void Main(string[] args)
@@ -39,17 +42,14 @@ namespace ChatMainServer
             Configs.SetConfigs();
             // CreateUserSeed();
             // CreateChatRoomSeed();
-            
             User u1 =  UserController.GetUserUsingUsername("toukir");
-            // ChatRoom c1 = ChatRoomController.GetChatRoomUsingName("Room 1");
-            // u1.SendMessage(c1, "Hello Everyone");
-            // // c1.AddChatRoomUser(u1);
+            ChatRoom c1 = ChatRoomController.GetChatRoomUsingName("Room 1");
+            // c1.AddChatRoomUser(u1);
+            u1.SendMessage(c1, "Hello Everyone");
+            // Sender();
+            // Receiver();
             
             
-            
-            
-
-            // Authentication.OnlineUserList();
             
         }
     }

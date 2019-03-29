@@ -34,7 +34,9 @@ namespace ChatMainServer{
             var mq = Configs.userCollection.Find(new BsonDocument(){
                 {"Username", username}
             }).FirstOrDefault();
-            return new User( mq["Username"].ToString(), mq["Password"].ToString() );
+            User foundUser = new User( mq["Username"].ToString(), mq["Password"].ToString() );
+            foundUser.Id = new ObjectId(mq["_id"].ToString());
+            return foundUser;
         }
     }
 }

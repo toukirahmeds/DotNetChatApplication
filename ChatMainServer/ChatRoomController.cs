@@ -56,7 +56,7 @@ namespace ChatMainServer{
             ArrayList connectedUsers = new ArrayList();
             ArrayList chatHistory = new ArrayList();
             foreach(dynamic user in mq.GetValue("ConnectedUsers").AsBsonArray){
-                connectedUsers.Add( new ChatUser( new ObjectId(user["_id"].ToString()), user["Username"].ToString()) );
+                connectedUsers.Add( new ChatUser( new ObjectId(user["UserId"].ToString()), user["Username"].ToString()) );
             }
             
             foreach(dynamic chat in mq.GetValue("ChatHistory").AsBsonArray){
@@ -76,34 +76,41 @@ namespace ChatMainServer{
 
 
         public static void SendMessage(this User user, ChatRoom cr, string message){
-            // if(cr.HasUser(user.Username)){
-            //     cr.AddChatMessage( user.Id, message );
-            //     UpdateChatRoom(cr);
-            // }else{
-            //     throw (new ChatRoomException("User do not belong to this chat room."));
-            // }
-            using(IConnection connection = Configs.rabbitConnectionFactory.CreateConnection()){
-                using(IModel channel = Configs.rabbitConnection.CreateModel()){
-                channel.QueueDeclare(
-                    queue : Configs.RabbitMQChatKey,
-                    autoDelete: false,
-                    exclusive : false,
-                    durable : false,
-                    arguments : null
-                );
+            if(cr.HasUser(user.Username)){
+                ConnectionFactory f = new ConnectionFactory(){HostName = "localhost"};
+                using(IConnection con = f.CreateConnection())
+                using(IModel channel = con.CreateModel()){
+                    channel.QueueDeclare(
+                        queue : "hello",
+                        autoDelete: false,
+                        exclusive : false,
+                        durable : false,
+                        arguments : null
+                    );
 
-                string msg = "Message from user : "+user.Username.ToString() + ", chatRoom : " + cr.Name.ToString();
-                var body = Encoding.UTF8.GetBytes(message);
-                Console.WriteLine("Sending Message");
-                channel.BasicPublish(
-                    exchange : "",
-                    routingKey : Configs.RabbitMQChatKey,
-                    mandatory : true,
-                    basicProperties : null,
-                    body : body
-                );
+                    var body = Encoding.UTF8.GetBytes(message);
+                    foreach(ChatUser cu in cr.ConnectedUsers){
+                        if(user.Id.ToString().CompareTo(cu.UserId.ToString()) != 0){
+                            channel.BasicPublish(
+                                exchange : "",
+                                routingKey : "hello",
+                                mandatory : true,
+                                basicProperties : null,
+                                body : body
+                            );
+                            cu.setMessageReceiver();
+                        }
+                            
+                    }
+                    
+                    cr.AddChatMessage( user.Id, message );
+                    UpdateChatRoom(cr);
+
+                }
+            }else{
+                throw (new ChatRoomException("User do not belong to this chat room."));
             }
-            }
+            
             
             
         }
