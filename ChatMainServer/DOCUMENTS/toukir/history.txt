@@ -1,0 +1,74 @@
+			 ***********CHAT HISTORY FOR : toukir*****************
+----------- CHAT ROOM : Room 1
+
+			===========================================
+			SENDER : toukir
+			Message Time : 2019-03-29T14:11:45.042Z
+			Message Type : TEXT
+			Message Text : Hello Everyone
+			===========================================
+			===========================================
+			SENDER : toukir
+			Message Time : 2019-03-29T14:13:13.933Z
+			Message Type : TEXT
+			Message Text : Hello Everyone
+			===========================================
+			===========================================
+			SENDER : toukir
+			Message Time : 2019-03-29T14:13:38.735Z
+			Message Type : TEXT
+			Message Text : Hello Everyone
+			===========================================
+			===========================================
+			SENDER : toukir
+			Message Time : 2019-03-29T14:15:50.986Z
+			Message Type : TEXT
+			Message Text : Hello Everyone
+			===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:23:47.925Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:27:36.037Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:27:49.829Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:28:12.082Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:28:31.192Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:29:25.724Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+										===========================================
+										RECEIVER : toukir
+										Message Time : 2019-03-29T15:29:47.653Z
+										Message Type : TEXT
+										Message Text : Hello Everyone
+										===========================================
+
+
+
+
+			 **********END OF CHAT HISTORY****************

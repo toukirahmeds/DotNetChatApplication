@@ -8,6 +8,8 @@ using System.Linq;
 using System.Collections;
 using System.Text;
 using RabbitMQ.Client;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ChatMainServer{
     
@@ -137,23 +139,13 @@ namespace ChatMainServer{
             return messageString;
         }
 
-
-        public static void DownloadChatHistory(this User user){
+        public static string generateChatHistoryString(User user, List<BsonDocument> userChatHistory){
             string chatHistory = space+" ***********CHAT HISTORY FOR : "+user.Username.ToString()+"*****************\n";
             string identifier = "";
             string customSpace = "";
-            var filter = Builders<BsonDocument>.Filter.ElemMatch(
-                "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
-            );
-
-            var userChatRoomList = Configs.chatRoomCollection.Find(filter).ToList();
-            Console.WriteLine();
-            Console.WriteLine(userChatRoomList);
-            userChatRoomList.ForEach((elem)=>{
-                // Console.WriteLine(elem["ChatHistory"]);
+            userChatHistory.ForEach((elem)=>{
                 chatHistory += "----------- CHAT ROOM : "+ elem["Name"] + "\n\n";
                 elem["ChatHistory"].AsBsonArray.ToList().ForEach((chatElem)=>{
-                    Console.WriteLine(chatElem);
                     if( chatElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
                         identifier = "SENDER";
                         customSpace = space;
@@ -165,10 +157,32 @@ namespace ChatMainServer{
                 });
                 chatHistory += "\n\n\n\n";
             });
-            chatHistory += space+" **********END OF CHAT HISTORY****************\n";
 
-            Console.WriteLine(chatHistory);
-            File.WriteAllText("history.txt", chatHistory);
+            chatHistory += space+" **********END OF CHAT HISTORY****************\n";
+            return chatHistory;
+        }
+
+        public async static Task<bool> WriteToFile(string filePath, string originalString){
+            await File.WriteAllTextAsync(filePath, originalString);
+            return true;
+        }
+
+
+        public async static void DownloadChatHistory(this User user){
+            
+            var filter = Builders<BsonDocument>.Filter.ElemMatch(
+                "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
+            );
+
+            var userChatHistory = Configs.chatRoomCollection.Find(filter).ToList();
+            string chatHistory = generateChatHistoryString(user, userChatHistory);
+
+            string directoryName = "./DOCUMENTS/"+ user.Username.ToString();
+            Directory.CreateDirectory(directoryName);
+            string filePath = directoryName +"/history.txt";
+            Task<bool> t =  WriteToFile(filePath, chatHistory);
+
+            bool fileWriteSuccess = await t;
         }
     }
     
