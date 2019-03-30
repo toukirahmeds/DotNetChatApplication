@@ -187,8 +187,30 @@ namespace ChatMainServer{
         }
 
 
-        public static void SearchChatMessages(this User user, string filter){
+        public static void SearchChatMessages(this User user, string filter = ""){
+            Console.WriteLine("SEARCHING THROUGH USER CHAT MESSAGES: ");
 
+            var queryFilter = Builders<BsonDocument>.Filter.ElemMatch(
+                "ConnectedUsers" , Builders<BsonDocument>.Filter.Eq("Username", user.Username)
+            );
+
+            string customerSpace = "";
+
+            Configs.chatRoomCollection.Find(queryFilter).ToList().ForEach((elem)=>{
+                var lq = elem["ChatHistory"].AsBsonArray.Where( (messageElem)=> messageElem["Message"].ToString().ToLower().Contains(filter) );
+                lq.ToList().ForEach((lqElem)=>{
+                    // Console.WriteLine(lqElem);
+                    if( lqElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
+                        customerSpace = space;
+                    }else{
+                        customerSpace = doubleSpace;
+                    }
+                    var senderInfo = elem["ConnectedUsers"].AsBsonArray.Where( connectedUser => connectedUser["UserId"].ToString().CompareTo( lqElem["UserId"].ToString() ) == 0 ).FirstOrDefault();
+                    Console.WriteLine( getMessageString(  customerSpace, "SENDER", senderInfo["Username"].ToString(), lqElem["MessageTime"].ToString(), "TEXT", lqElem["Message"].ToString() )   );               
+                });
+                // Console.WriteLine("Linq QUery  : {0}", );
+            });
+            Console.WriteLine("END OF DISPLAYING USER CHAT MESSAGES");
         }
     }
     
