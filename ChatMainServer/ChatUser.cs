@@ -5,7 +5,7 @@ using RabbitMQ.Client.Events;
 using System.Text;
 
 namespace ChatMainServer{
-    public class ChatUser{
+    public class ChatUser:AbstractPerson{
         private ObjectId userId;
         private string username;
 
@@ -22,7 +22,7 @@ namespace ChatMainServer{
         }
 
 
-        public string Username{
+        public override string Username{
             get { return this.username;}
             set { this.username = value;}
         }
