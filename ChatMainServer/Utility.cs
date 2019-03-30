@@ -1,24 +1,18 @@
 using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace ChatMainServer{
     public static class Utility{
-        public static string GetHash256String(string myString){
+        public static string GetHash256String(string myString = ""){
             if(String.IsNullOrEmpty(myString)) return String.Empty;
-            using( SHA256 sha = SHA256.Create() ){
-                byte[] textData = System.Text.Encoding.UTF8.GetBytes(myString);
-                byte[] hash = sha.ComputeHash(textData);
-                return BitConverter.ToString(hash).Replace("-", String.Empty);
-            }
+            SHA256 sh = SHA256.Create();
+            return BitConverter.ToString( sh.ComputeHash( Encoding.UTF8.GetBytes(myString) ) ).ToString();
         }
 
-        public static bool CheckPasswordMatch(string givenString, string encodedString){
+        public static bool CheckHashMatch(string givenString, string encodedString){
             string givenStringEncoded = Utility.GetHash256String(givenString);
-            Console.WriteLine(givenString);
-            Console.WriteLine( givenStringEncoded );
-            Console.WriteLine( encodedString);
-            Console.WriteLine( givenStringEncoded.CompareTo(encodedString) );
-            return false;
+            return givenStringEncoded.CompareTo(encodedString) == 0;
         }
 
         public static void PrintList(this string[] strList){

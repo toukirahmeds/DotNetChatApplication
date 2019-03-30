@@ -6,15 +6,34 @@ using MongoDB.Driver;
 
 namespace ChatMainServer{
     public static class Authentication{
+
+        public static User SignUp(string username, string password){
+            var foundUser = Configs.userCollection.Find(new BsonDocument(){
+                {"Username", username}
+            }).FirstOrDefault();
+            if(foundUser != null){
+                throw (new UserAuthenticationException("User Already Exists"));
+            }else{
+                User user = new User(username, Utility.GetHash256String(password) );
+                BsonDocument bsonUser= user.ToBsonDocument();
+                Configs.userCollection.InsertOne(bsonUser);
+                return user;
+            }
+            
+        }
+
+
         public static bool SignIn(string username, string password){
             var user = Configs.userCollection.Find(new BsonDocument(){
                 {"Username" , username}
             }).FirstOrDefault();
             if(user != null){
                 User foundUser = BsonSerializer.Deserialize<User>(user);
-                foundUser.IsLoggedIn = true;
-                UserController.UpdateUserInfo(foundUser);
-                return true;
+                if( Utility.CheckHashMatch( password, foundUser.Password ) ){
+                    foundUser.IsLoggedIn = true;
+                    UserController.UpdateUserInfo(foundUser);
+                    return true;
+                }
             }
 
             return false;
