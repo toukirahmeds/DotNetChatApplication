@@ -7,7 +7,14 @@ namespace ChatMainServer{
         public static string GetHash256String(string myString = ""){
             if(String.IsNullOrEmpty(myString)) return String.Empty;
             SHA256 sh = SHA256.Create();
-            return BitConverter.ToString( sh.ComputeHash( Encoding.UTF8.GetBytes(myString) ) ).ToString();
+            byte[] shaBytes = sh.ComputeHash( Encoding.UTF8.GetBytes(myString) );
+            string hashedString = "";
+            foreach(byte shaByte in shaBytes){
+                hashedString += shaByte.ToString("x2");
+            }
+
+
+            return hashedString.ToString();
         }
 
         public static bool CheckHashMatch(string givenString, string encodedString){

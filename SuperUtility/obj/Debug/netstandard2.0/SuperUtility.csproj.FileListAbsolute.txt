@@ -1,0 +1,9 @@
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/obj/Debug/netstandard2.0/SuperUtility.csprojAssemblyReference.cache
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/obj/Debug/netstandard2.0/SuperUtility.csproj.CoreCompileInputs.cache
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/obj/Debug/netstandard2.0/SuperUtility.AssemblyInfoInputs.cache
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/obj/Debug/netstandard2.0/SuperUtility.AssemblyInfo.cs
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/bin/Debug/netstandard2.0/SuperUtility.deps.json
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/bin/Debug/netstandard2.0/SuperUtility.dll
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/bin/Debug/netstandard2.0/SuperUtility.pdb
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/obj/Debug/netstandard2.0/SuperUtility.dll
+/home/toukirahmeds/Workspace/DotNetChatApplication/SuperUtility/obj/Debug/netstandard2.0/SuperUtility.pdb

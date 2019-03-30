@@ -6,6 +6,8 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver;
 
+using SuperUtility;
+
 namespace ChatMainServer{
     public static class Authentication{
         public static string space = "\t\t\t\t\t\t";
@@ -17,7 +19,7 @@ namespace ChatMainServer{
             if(foundUser != null){
                 throw (new UserAuthenticationException("User Already Exists"));
             }else{
-                User user = new User(username, Utility.GetHash256String(password) );
+                User user = new User(username, Utility.GetHash256String(password)  /* SuperUtilityClass.GetHash256String(password)*/ );
                 BsonDocument bsonUser= user.ToBsonDocument();
                 Configs.userCollection.InsertOne(bsonUser);
                 return user;

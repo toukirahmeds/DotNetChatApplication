@@ -1,5 +1,5 @@
 ﻿using System;
-
+using SuperUtility;
 namespace ChatClient
 {
     class Program
@@ -7,6 +7,7 @@ namespace ChatClient
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            
         }
     }
 }

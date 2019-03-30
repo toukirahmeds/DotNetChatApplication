@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>SuperUtility</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Toukir Ahmed Shuva</Authors>
+    <Company>Selise Rockin' Software</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>
