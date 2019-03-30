@@ -104,7 +104,7 @@ namespace ChatMainServer{
                     );
 
                     
-                    if(message.Contains("file")){
+                    if(message.Contains("file:")){
                         string[] stringSplitted = message.Split("/");
                         string keyName = stringSplitted[ stringSplitted.Length - 1 ];
                         await S3BucketController.S3UploadObject(keyName, message.Split(":")[1]);

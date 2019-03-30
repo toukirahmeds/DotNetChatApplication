@@ -57,7 +57,7 @@ namespace ChatMainServer{
                     var body = ea.Body;
                     string message = Encoding.UTF8.GetString(body);
                     string messageType = "TEXT";
-                    if(message.Contains("file")){
+                    if(message.Contains("file:")){
                         string keyName = message.Split(":")[1].ToString();                        
                         messageType = "FILE";
                         S3BucketController.S3DownloadObject(keyName, Configs.FileDownloadPath + this.Username);

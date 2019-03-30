@@ -20,10 +20,16 @@ namespace ChatMainServer{
             request.InputStream = fs;
             request.BucketName = Configs.S3BucketName;
             request.Key = key;
-            PutObjectResponse response = await Configs.S3Client.PutObjectAsync(request);
-            Console.WriteLine("FILE Has been uploaded UPLOADED");
-            fs.Close();
+            try{
+                PutObjectResponse response = await Configs.S3Client.PutObjectAsync(request);
+                Console.WriteLine("FILE Has been uploaded UPLOADED");
+            }catch(AmazonS3Exception e){
+                Console.WriteLine("AmazonS3Exception Caught : {0}", e.Message);
+            }finally{
+                fs.Close();
+            }
             return true;
+            
         }
 
 
@@ -39,13 +45,18 @@ namespace ChatMainServer{
                 Key = key,
                 BucketName = Configs.S3BucketName
             };
-            GetObjectResponse response = await Configs.S3Client.GetObjectAsync(request);
-            Stream responseStream = response.ResponseStream;
-            StreamReader reader = new StreamReader(responseStream);
-            Directory.CreateDirectory(directoryPath);
-            File.WriteAllText(directoryPath + "/" + key, reader.ReadToEnd());
-            Console.WriteLine("File Has been downloaded");
-            reader.Close();
+            try{
+                GetObjectResponse response = await Configs.S3Client.GetObjectAsync(request);
+                Stream responseStream = response.ResponseStream;
+                StreamReader reader = new StreamReader(responseStream);
+                Directory.CreateDirectory(directoryPath);
+                File.WriteAllText(directoryPath + "/" + key, reader.ReadToEnd());
+                Console.WriteLine("File Has been downloaded");
+                reader.Close();
+            }catch(AmazonS3Exception e){
+                Console.WriteLine("AmazonS3Exception : {0}", e.Message);
+            }
+            
         }
     }
 }

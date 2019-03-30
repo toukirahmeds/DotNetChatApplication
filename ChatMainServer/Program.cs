@@ -144,10 +144,14 @@ namespace ChatMainServer
             string Username = Console.ReadLine();
             Console.WriteLine("Password : ");
             string Password = Console.ReadLine();
-            Authentication.SignUp(Username, Password);
-
-            Console.WriteLine("================================");
-            MainScreen();
+            try{
+                Authentication.SignUp(Username, Password);
+            }catch(UserAuthenticationException e){
+                Console.WriteLine("UserAuthenticationException : {0}", e.Message);
+            }finally{
+                Console.WriteLine("================================");
+                MainScreen();
+            }
         }
 
         static void SignInScreen(){
@@ -170,8 +174,14 @@ namespace ChatMainServer
             Console.WriteLine("THIS IS THE Create Chat Room SCREEN");
             Console.WriteLine("Chat Room Name : ");
             string chatRoomName = Console.ReadLine();
-            ChatRoomController.CreateChatRoom(chatRoomName);
-            Console.WriteLine("================================");
+            try{
+                ChatRoomController.CreateChatRoom(chatRoomName);
+            }catch(ChatRoomException e){
+                Console.WriteLine("ChatRoomException Caught : {0}", e.Message);
+            }finally{
+                Console.WriteLine("================================");
+            }
+            
 
         }
 
