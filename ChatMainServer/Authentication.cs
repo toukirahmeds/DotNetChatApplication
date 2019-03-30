@@ -56,7 +56,7 @@ namespace ChatMainServer{
             Console.WriteLine("SUCCESSFULLY SIGNED OUT");
         }
 
-        public static void OnlineUserList(){
+        public static void OnlineUserList<T>(){
             var onlineUserListBson = Configs.userCollection.Find("{ IsLoggedIn : true }").Project("{ _id : 1, Username : 1 }").ToList();
             Console.WriteLine(space + "=================LIST OF ONLINE USERS ======================= ");
             if(onlineUserListBson.Count == 0){
@@ -64,7 +64,7 @@ namespace ChatMainServer{
             }else{
                 int serial = 1;
                 foreach(BsonDocument onlineUserBson in onlineUserListBson){
-                    User onlineUser = BsonSerializer.Deserialize<User>(onlineUserBson);
+                    dynamic onlineUser = BsonSerializer.Deserialize<T>(onlineUserBson);
                     Console.WriteLine(space + "{0}) USERNAME : {1}", serial, onlineUser.Username);
                     serial++;
                 }

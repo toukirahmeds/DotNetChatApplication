@@ -158,7 +158,7 @@ namespace ChatMainServer
                     SignInScreen();
                     break;
                 case "3":
-                    Authentication.OnlineUserList();
+                    Authentication.OnlineUserList<User>();
                     break;
                 case "4":
                     CreateChatRoomScreen();
