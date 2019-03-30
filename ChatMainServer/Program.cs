@@ -51,7 +51,7 @@ namespace ChatMainServer
             // c1.AddChatRoomUser(u1);
             // u1.SendMessage(c1, "Hello Everyone");
             // u1.DownloadChatHistory();
-            u1.SearchChatMessages("ever");
+            u1.SearchChatMessages("hii");
             // S3BucketController.S3CreateBucket();
 
         }

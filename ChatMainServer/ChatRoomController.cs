@@ -188,7 +188,7 @@ namespace ChatMainServer{
 
 
         public static void SearchChatMessages(this User user, string filter = ""){
-            Console.WriteLine("SEARCHING THROUGH USER CHAT MESSAGES: ");
+            Console.WriteLine("SEARCHING THROUGH USER CHAT MESSAGE FOR USER : ("+user.Username.ToString() + ") With STRING : \'"+filter.ToString() + "\'");
 
             var queryFilter = Builders<BsonDocument>.Filter.ElemMatch(
                 "ConnectedUsers" , Builders<BsonDocument>.Filter.Eq("Username", user.Username)
@@ -197,9 +197,9 @@ namespace ChatMainServer{
             string customerSpace = "";
 
             Configs.chatRoomCollection.Find(queryFilter).ToList().ForEach((elem)=>{
+                Console.WriteLine("\n\n*************CHAT ROOM NAME : {0}***************\n\n", elem["Name"]);
                 var lq = elem["ChatHistory"].AsBsonArray.Where( (messageElem)=> messageElem["Message"].ToString().ToLower().Contains(filter) );
                 lq.ToList().ForEach((lqElem)=>{
-                    // Console.WriteLine(lqElem);
                     if( lqElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
                         customerSpace = space;
                     }else{
@@ -208,7 +208,6 @@ namespace ChatMainServer{
                     var senderInfo = elem["ConnectedUsers"].AsBsonArray.Where( connectedUser => connectedUser["UserId"].ToString().CompareTo( lqElem["UserId"].ToString() ) == 0 ).FirstOrDefault();
                     Console.WriteLine( getMessageString(  customerSpace, "SENDER", senderInfo["Username"].ToString(), lqElem["MessageTime"].ToString(), "TEXT", lqElem["Message"].ToString() )   );               
                 });
-                // Console.WriteLine("Linq QUery  : {0}", );
             });
             Console.WriteLine("END OF DISPLAYING USER CHAT MESSAGES");
         }
