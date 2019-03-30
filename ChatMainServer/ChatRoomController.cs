@@ -86,7 +86,7 @@ namespace ChatMainServer{
         }
 
 
-        public static void SendMessage(this User user, ChatRoom cr, string message){
+        public async static void SendMessage(this User user, ChatRoom cr, string message){
             if(cr.HasUser(user.Username)){
                 ConnectionFactory f = new ConnectionFactory(){HostName = "localhost"};
                 using(IConnection con = f.CreateConnection())
@@ -99,6 +99,13 @@ namespace ChatMainServer{
                         arguments : null
                     );
 
+                    
+                    if(message.Contains("file")){
+                        string[] stringSplitted = message.Split("/");
+                        string keyName = stringSplitted[ stringSplitted.Length - 1 ];
+                        await S3BucketController.S3UploadObject(keyName, message.Split(":")[1]);
+                        message = "file:"+keyName;
+                    }
                     var body = Encoding.UTF8.GetBytes(message);
                     PrintChatMessage(user, message);
                     foreach(ChatUser cu in cr.ConnectedUsers){

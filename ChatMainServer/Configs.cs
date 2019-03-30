@@ -18,10 +18,14 @@ namespace ChatMainServer{
 
         public static IConnection rabbitConnection;
 
-        public static string S3AccessKey = "AKIAXJJI56KAET32NUHN";
-        public static string S3SecretKey = "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";
+        public static string S3AccessKey = "AKIAXJJI56KALITBRA3H";
+        public static string S3SecretKey = "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";
         public static AmazonS3Config S3Config;
         public static AmazonS3Client S3Client;
+
+        public static string S3BucketName = "stp-selise";
+
+        public static string FileDownloadPath = "./DOWNLOADS/";
 
         public static void MongoConnect(){
             Configs.dbClient = new MongoClient("mongodb://localhost:27017");
@@ -40,7 +44,9 @@ namespace ChatMainServer{
         public static void S3Connect(){
             S3Config = new AmazonS3Config();
             S3Client = new AmazonS3Client(
-                RegionEndpoint.EUCentral1
+                Configs.S3AccessKey,
+                Configs.S3SecretKey,
+                RegionEndpoint.USEast1
             );
             Console.WriteLine("Connected to S3 Client");
         }

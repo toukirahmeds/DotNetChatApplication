@@ -212,7 +212,8 @@ namespace ChatMainServer
         {
             Configs.SetConfigs();
             MainScreen();
-            
+            // // S3BucketController.S3Upload("./DOCUMENTS/toukirahmeds/history.txt");
+            // S3BucketController.S3GetObject();
 
         }
     }

@@ -32,9 +32,10 @@ namespace ChatMainServer{
             set { this.userId = value;}
         }
 
-        public static void printChatMessage(ChatUser cu, string message){
+        public static void printChatMessage(ChatUser cu, string message, string messageType){
                 Console.WriteLine(space + "============================================");
                 Console.WriteLine(space + "RECEIVER : {0}", cu.Username);
+                Console.WriteLine(space + "MESSAGE TYPE : {0}", messageType);
                 Console.WriteLine(space + "MESSAGE TEXT : {0}", message);
                 Console.WriteLine(space + "=============================================");
         }
@@ -54,7 +55,15 @@ namespace ChatMainServer{
                 consumer.Received += (model, ea)=>{
                     var body = ea.Body;
                     string message = Encoding.UTF8.GetString(body);
-                    printChatMessage(this, message);
+                    string messageType = "TEXT";
+                    if(message.Contains("file")){
+                        string keyName = message.Split(":")[1].ToString();                        
+                        messageType = "FILE";
+                        S3BucketController.S3DownloadObject(keyName, Configs.FileDownloadPath + this.Username);
+                    }
+
+                    printChatMessage(this, message, messageType);
+                    
                     channel.Close();
                 };
 
