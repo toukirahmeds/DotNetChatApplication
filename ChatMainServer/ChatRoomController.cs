@@ -141,19 +141,19 @@ namespace ChatMainServer{
 
         public static string generateChatHistoryString(User user, List<BsonDocument> userChatHistory){
             string chatHistory = space+" ***********CHAT HISTORY FOR : "+user.Username.ToString()+"*****************\n";
-            string identifier = "";
+            string identifier = "SENDER";
             string customSpace = "";
             userChatHistory.ForEach((elem)=>{
                 chatHistory += "----------- CHAT ROOM : "+ elem["Name"] + "\n\n";
                 elem["ChatHistory"].AsBsonArray.ToList().ForEach((chatElem)=>{
                     if( chatElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
-                        identifier = "SENDER";
                         customSpace = space;
                     }else{
-                        identifier = "RECEIVER";
                         customSpace = doubleSpace;
                     }
-                    chatHistory += getMessageString( customSpace, identifier, user.Username.ToString(), chatElem["MessageTime"].ToString(), "TEXT", chatElem["Message"].ToString());
+
+                    var senderInfo = elem["ConnectedUsers"].AsBsonArray.Where(connectedUser => connectedUser["UserId"].ToString().CompareTo( chatElem["UserId"].ToString() ) == 0 ).FirstOrDefault();
+                    chatHistory += getMessageString( customSpace, identifier, senderInfo["Username"].ToString(), chatElem["MessageTime"].ToString(), "TEXT", chatElem["Message"].ToString());
                 });
                 chatHistory += "\n\n\n\n";
             });
@@ -184,6 +184,11 @@ namespace ChatMainServer{
 
             bool fileWriteSuccess = await t;
             Console.WriteLine("CHAT HISTORY DOWNLOAD COMPLETED");
+        }
+
+
+        public static void SearchChatMessages(this User user, string filter){
+
         }
     }
     
