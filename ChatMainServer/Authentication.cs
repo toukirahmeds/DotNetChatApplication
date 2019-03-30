@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver.Linq;
@@ -67,6 +69,22 @@ namespace ChatMainServer{
             }
             
             Console.WriteLine(space + "==================End OF ONLINE USER LIST============================");
+        }
+
+
+        public static ArrayList GetOnlineChatUserList(ArrayList chatUserList){
+            BsonArray bsonArray = new BsonArray();
+            foreach(ChatUser u in chatUserList){
+                bsonArray.Add( u.UserId );
+            }
+            var filterQuery = Builders<BsonDocument>.Filter.In(
+                "_id", bsonArray
+            ) & Builders<BsonDocument>.Filter.Eq("IsLoggedIn", true);
+
+            var mq = Configs.userCollection.Find(filterQuery).ToList();
+            ArrayList onlineChatUserList = new ArrayList();
+            mq.ForEach(elem => onlineChatUserList.Add( new ChatUser( new ObjectId( elem["_id"].ToString() ), elem["Username"].ToString() ) ));
+            return onlineChatUserList;
         }
     }
 }

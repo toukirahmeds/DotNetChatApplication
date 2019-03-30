@@ -87,12 +87,16 @@ namespace ChatMainServer{
 
 
         public async static void SendMessage(this User user, ChatRoom cr, string message){
+            if(String.IsNullOrEmpty(message)){
+                Console.WriteLine(space+"No Empty Message Allowed\n\n");
+                return;
+            }
             if(cr.HasUser(user.Username)){
                 ConnectionFactory f = new ConnectionFactory(){HostName = "localhost"};
                 using(IConnection con = f.CreateConnection())
                 using(IModel channel = con.CreateModel()){
                     channel.QueueDeclare(
-                        queue : "hello",
+                        queue : Configs.RabbitMQChatKey,
                         autoDelete: false,
                         exclusive : false,
                         durable : false,
@@ -108,19 +112,19 @@ namespace ChatMainServer{
                     }
                     var body = Encoding.UTF8.GetBytes(message);
                     PrintChatMessage(user, message);
-                    foreach(ChatUser cu in cr.ConnectedUsers){
-                        // Console.WriteLine(cu.ToBsonDocument());
+                    ArrayList onlineChatUserList =  Authentication.GetOnlineChatUserList(cr.ConnectedUsers);
+                    foreach(ChatUser cu in onlineChatUserList){
                         if(user.Id.ToString().CompareTo(cu.UserId.ToString()) != 0){
+                            
                             channel.BasicPublish(
                                 exchange : "",
-                                routingKey : "hello",
+                                routingKey : Configs.RabbitMQChatKey,
                                 mandatory : true,
                                 basicProperties : null,
                                 body : body
                             );
                             cu.setMessageReceiver();
                         }
-                            
                     }
 
                     channel.Close();
@@ -242,6 +246,7 @@ namespace ChatMainServer{
             Console.WriteLine("Select your chat room: ");
             string inputText = Console.ReadLine();
             if(inputText.ToLower().CompareTo("exit") == 0) return null;
+            else if(String.IsNullOrEmpty(inputText)) return null;
             int chatRoomIndex = Convert.ToInt32( inputText ) - 1;
             return GetChatRoomUsingName( chatRoomList[chatRoomIndex]["Name"].ToString() );
 
@@ -263,6 +268,7 @@ namespace ChatMainServer{
             Console.WriteLine("Select your chat room to enroll: ");
             string inputText = Console.ReadLine();
             if(inputText.ToLower().CompareTo("exit") == 0) return null;
+            else if(String.IsNullOrEmpty(inputText)) return null;
             int chatRoomIndex = Convert.ToInt32( inputText ) - 1;
             ChatRoom cr = GetChatRoomUsingName( chatRoomList[chatRoomIndex]["Name"].ToString() );
             cr.AddChatRoomUser(user);

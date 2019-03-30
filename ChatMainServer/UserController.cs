@@ -25,5 +25,7 @@ namespace ChatMainServer{
             foundUser.Id = new ObjectId(mq["_id"].ToString());
             return foundUser;
         }
+
+        
     }
 }

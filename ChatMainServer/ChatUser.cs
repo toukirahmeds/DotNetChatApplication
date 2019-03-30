@@ -38,6 +38,7 @@ namespace ChatMainServer{
                 Console.WriteLine(space + "MESSAGE TYPE : {0}", messageType);
                 Console.WriteLine(space + "MESSAGE TEXT : {0}", message);
                 Console.WriteLine(space + "=============================================");
+                Console.WriteLine("\t\t\tEnter any key to continue...");
         }
         public void setMessageReceiver(){
             ConnectionFactory f = new ConnectionFactory(){HostName = "localhost"};
@@ -45,7 +46,7 @@ namespace ChatMainServer{
             using(IModel channel = con.CreateModel()){
 
                 channel.QueueDeclare(
-                    queue : "hello",
+                    queue : Configs.RabbitMQChatKey,
                     exclusive : false,
                     autoDelete : false,
                     arguments : null
@@ -68,7 +69,7 @@ namespace ChatMainServer{
                 };
 
                 channel.BasicConsume(
-                    queue : "hello",
+                    queue : Configs.RabbitMQChatKey,
                     autoAck : true,
                     consumer : consumer
                 );
