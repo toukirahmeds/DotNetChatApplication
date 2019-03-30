@@ -169,7 +169,7 @@ namespace ChatMainServer{
 
 
         public async static void DownloadChatHistory(this User user){
-            Console.WriteLine("CHAT HISTORY DOWNLOAD FOR : {0}", user.Username.ToString());
+            Console.WriteLine("CHAT HISTORY DOWNLOADING FOR : {0}", user.Username.ToString());
             var filter = Builders<BsonDocument>.Filter.ElemMatch(
                 "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
             );
@@ -179,7 +179,8 @@ namespace ChatMainServer{
 
             string directoryName = "./DOCUMENTS/"+ user.Username.ToString();
             Directory.CreateDirectory(directoryName);
-            string filePath = directoryName +"/history.txt";
+            DateTime currentDate = DateTime.Now;
+            string filePath = directoryName +"/history_" + currentDate.Year.ToString() + "_" + currentDate.Month.ToString() + "_" + currentDate.Day.ToString() + "_" + currentDate.TimeOfDay.ToString() + ".txt";
             Task<bool> t =  WriteToFile(filePath, chatHistory);
 
             bool fileWriteSuccess = await t;
@@ -188,7 +189,7 @@ namespace ChatMainServer{
 
 
         public static void SearchChatMessages(this User user, string filter = ""){
-            Console.WriteLine("SEARCHING THROUGH USER CHAT MESSAGE FOR USER : ("+user.Username.ToString() + ") With STRING : \'"+filter.ToString() + "\'");
+            Console.WriteLine(space + "SEARCHING THROUGH USER CHAT MESSAGE FOR USER : ("+user.Username.ToString() + ") With STRING : \'"+filter.ToString() + "\'");
 
             var queryFilter = Builders<BsonDocument>.Filter.ElemMatch(
                 "ConnectedUsers" , Builders<BsonDocument>.Filter.Eq("Username", user.Username)
@@ -204,19 +205,66 @@ namespace ChatMainServer{
                     Console.WriteLine( space + " NO MATCH FOUND FOR THE GIVEN STRING\n\n\n" );
                 }else{
                     lq.ToList().ForEach((lqElem)=>{
-                    if( lqElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
-                        customerSpace = space;
-                    }else{
-                        customerSpace = doubleSpace;
-                    }
-                    var senderInfo = elem["ConnectedUsers"].AsBsonArray.Where( connectedUser => connectedUser["UserId"].ToString().CompareTo( lqElem["UserId"].ToString() ) == 0 ).FirstOrDefault();
-                    Console.WriteLine( getMessageString(  customerSpace, "SENDER", senderInfo["Username"].ToString(), lqElem["MessageTime"].ToString(), "TEXT", lqElem["Message"].ToString() )   );               
-                });
+                        if( lqElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
+                            customerSpace = space;
+                        }else{
+                            customerSpace = doubleSpace;
+                        }
+                        var senderInfo = elem["ConnectedUsers"].AsBsonArray.Where( connectedUser => connectedUser["UserId"].ToString().CompareTo( lqElem["UserId"].ToString() ) == 0 ).FirstOrDefault();
+                        Console.WriteLine( getMessageString(  customerSpace, "SENDER", senderInfo["Username"].ToString(), lqElem["MessageTime"].ToString(), "TEXT", lqElem["Message"].ToString() )   );               
+                    });
                 }
                 
             });
-            Console.WriteLine("END OF DISPLAYING USER CHAT MESSAGES\n\n");
+            Console.WriteLine(space + "END OF DISPLAYING USER CHAT MESSAGES\n\n");
         }
+
+
+        public static ChatRoom PrintAllConnectedChatRoomAndSelectChatRoom(this User user){
+            int cnt = 1;
+            var filter = Builders<BsonDocument>.Filter.ElemMatch(
+                "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
+            );
+            var chatRoomList = Configs.chatRoomCollection.Find(filter).ToList();
+            Console.WriteLine(space  + "List of Chat Rooms (type 'exit' and enter to exit from this screen.)");
+            chatRoomList.ForEach((elem)=>{
+                Console.WriteLine(space + "{0}) {1}", cnt, elem["Name"]);
+                cnt++;
+            });
+
+            Console.WriteLine("Select your chat room: ");
+            string inputText = Console.ReadLine();
+            if(inputText.ToLower().CompareTo("exit") == 0) return null;
+            int chatRoomIndex = Convert.ToInt32( inputText ) - 1;
+            return GetChatRoomUsingName( chatRoomList[chatRoomIndex]["Name"].ToString() );
+
+        }
+
+
+        public static ChatRoom PrintAllChatRoomAndEnroll(this User user){
+            int cnt = 1;
+            // var filter = Builders<BsonDocument>.Filter.ElemMatch(
+            //     "ConnectedUsers", Builders<BsonDocument>.Filter.Ne("Username", user.Username)
+            // );
+            var chatRoomList = Configs.chatRoomCollection.Find(new BsonDocument(){}).ToList();
+            Console.WriteLine(space  + "List of Chat Rooms (type 'exit' and enter to exit from this screen.)");
+            chatRoomList.ForEach((elem)=>{
+                Console.WriteLine(space+"{0}) {1}", cnt, elem["Name"]);
+                cnt++;
+            });
+
+            Console.WriteLine("Select your chat room to enroll: ");
+            string inputText = Console.ReadLine();
+            if(inputText.ToLower().CompareTo("exit") == 0) return null;
+            int chatRoomIndex = Convert.ToInt32( inputText ) - 1;
+            ChatRoom cr = GetChatRoomUsingName( chatRoomList[chatRoomIndex]["Name"].ToString() );
+            cr.AddChatRoomUser(user);
+            return cr;
+        }
+
+
+
+        
     }
     
 }

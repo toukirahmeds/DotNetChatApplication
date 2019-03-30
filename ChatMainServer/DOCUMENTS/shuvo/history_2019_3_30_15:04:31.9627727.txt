@@ -1,0 +1,32 @@
+			 ***********CHAT HISTORY FOR : shuvo*****************
+----------- CHAT ROOM : dragon
+
+										===========================================
+										SENDER : toukirahmeds
+										Message Time : 2019-03-30T09:01:18.507Z
+										Message Type : TEXT
+										Message Text : hello everyone
+										===========================================
+										===========================================
+										SENDER : toukirahmeds
+										Message Time : 2019-03-30T09:01:25.655Z
+										Message Type : TEXT
+										Message Text : i am cool
+										===========================================
+			===========================================
+			SENDER : shuvo
+			Message Time : 2019-03-30T09:04:14.74Z
+			Message Type : TEXT
+			Message Text : hiiiii
+			===========================================
+			===========================================
+			SENDER : shuvo
+			Message Time : 2019-03-30T09:04:22.797Z
+			Message Type : TEXT
+			Message Text : how are you
+			===========================================
+
+
+
+
+			 **********END OF CHAT HISTORY****************

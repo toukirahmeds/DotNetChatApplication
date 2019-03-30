@@ -1,0 +1,20 @@
+			 ***********CHAT HISTORY FOR : toukirahmeds*****************
+----------- CHAT ROOM : dragon
+
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-30T09:01:18.507Z
+			Message Type : TEXT
+			Message Text : hello everyone
+			===========================================
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-30T09:01:25.655Z
+			Message Type : TEXT
+			Message Text : i am cool
+			===========================================
+
+
+
+
+			 **********END OF CHAT HISTORY****************
