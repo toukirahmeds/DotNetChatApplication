@@ -103,12 +103,13 @@ namespace ChatMainServer{
                         arguments : null
                     );
 
-                    
+                    string messageType = "TEXT";
                     if(message.Contains("file:")){
                         string[] stringSplitted = message.Split("/");
                         string keyName = stringSplitted[ stringSplitted.Length - 1 ];
                         await S3BucketController.S3UploadObject(keyName, message.Split(":")[1]);
                         message = "file:"+keyName;
+                        messageType = "FILE";
                     }
                     var body = Encoding.UTF8.GetBytes(message);
                     PrintChatMessage(user, message);
@@ -129,7 +130,7 @@ namespace ChatMainServer{
 
                     channel.Close();
                     
-                    cr.AddChatMessage( user.Id, message );
+                    cr.AddChatMessage( user.Id, message, messageType );
                     UpdateChatRoom(cr);
 
                 }
@@ -156,6 +157,7 @@ namespace ChatMainServer{
             string customSpace = "";
             userChatHistory.ForEach((elem)=>{
                 chatHistory += "----------- CHAT ROOM : "+ elem["Name"] + "\n\n";
+                
                 elem["ChatHistory"].AsBsonArray.ToList().ForEach((chatElem)=>{
                     if( chatElem["UserId"].ToString().CompareTo( user.Id.ToString() ) == 0 ){
                         customSpace = space;
@@ -163,8 +165,10 @@ namespace ChatMainServer{
                         customSpace = doubleSpace;
                     }
 
-                    var senderInfo = elem["ConnectedUsers"].AsBsonArray.Where(connectedUser => connectedUser["UserId"].ToString().CompareTo( chatElem["UserId"].ToString() ) == 0 ).FirstOrDefault();
-                    chatHistory += getMessageString( customSpace, identifier, senderInfo["Username"].ToString(), chatElem["MessageTime"].ToString(), "TEXT", chatElem["Message"].ToString());
+                    BsonDocument senderInfo = elem["ConnectedUsers"].AsBsonArray.Where(connectedUser => connectedUser["UserId"].ToString().CompareTo( chatElem["UserId"].ToString() ) == 0 ).FirstOrDefault().ToBsonDocument();
+                    if(senderInfo != null){
+                        chatHistory += getMessageString( customSpace, identifier, senderInfo["Username"].ToString(), chatElem["MessageTime"].ToString(), String.IsNullOrEmpty( chatElem["MessageType"].ToString() )? "TEXT": chatElem["MessageType"].ToString(), chatElem["Message"].ToString());
+                    }
                 });
                 chatHistory += "\n\n\n\n";
             });
@@ -180,6 +184,7 @@ namespace ChatMainServer{
 
 
         public async static void DownloadChatHistory(this User user){
+            Console.WriteLine(user);
             Console.WriteLine("CHAT HISTORY DOWNLOADING FOR : {0}", user.Username.ToString());
             var filter = Builders<BsonDocument>.Filter.ElemMatch(
                 "ConnectedUsers", Builders<BsonDocument>.Filter.Eq("Username", user.Username)
@@ -194,8 +199,8 @@ namespace ChatMainServer{
             string filePath = directoryName +"/history_" + currentDate.Year.ToString() + "_" + currentDate.Month.ToString() + "_" + currentDate.Day.ToString() + "_" + currentDate.TimeOfDay.ToString() + ".txt";
             Task<bool> t =  WriteToFile(filePath, chatHistory);
 
-            bool fileWriteSuccess = await t;
-            Console.WriteLine("CHAT HISTORY DOWNLOAD COMPLETED");
+            // bool fileWriteSuccess = await t;
+            // Console.WriteLine("CHAT HISTORY DOWNLOAD COMPLETED");
         }
 
 
@@ -271,8 +276,14 @@ namespace ChatMainServer{
             else if(String.IsNullOrEmpty(inputText)) return null;
             int chatRoomIndex = Convert.ToInt32( inputText ) - 1;
             ChatRoom cr = GetChatRoomUsingName( chatRoomList[chatRoomIndex]["Name"].ToString() );
-            cr.AddChatRoomUser(user);
-            return cr;
+            try{
+                cr.AddChatRoomUser(user);
+                return cr;
+            }catch(ChatRoomException e){
+                Console.WriteLine("ChatRoomException Caught : {0}", e.Message);
+            }
+            return null;
+            
         }
 
 

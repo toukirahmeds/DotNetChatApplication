@@ -528,7 +528,7 @@
           }
         }
       },
-      "SuperUtility/1.0.0": {
+      "SuperUtility/1.0.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/SuperUtility.dll": {}
@@ -2577,15 +2577,15 @@
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "SuperUtility/1.0.0": {
-      "sha512": "hLGiVFf3pK0RvNTfZ8WHJLGxf3f1RE8QrjMlbzSJZFXx5bkDMx3AHIratpGPMPfdSNPfCAWkPxxfwWiCfvuTBg==",
+    "SuperUtility/1.0.1": {
+      "sha512": "AovXtSR+dXqDR7Dv6vviOXzbrXfDhUx2Nk1UYHo54m+lmj2P0dYhJbAIDxMWKoyD47oZEt1zN1O9lZSahh/8rw==",
       "type": "package",
-      "path": "superutility/1.0.0",
+      "path": "superutility/1.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/SuperUtility.dll",
-        "superutility.1.0.0.nupkg.sha512",
+        "superutility.1.0.1.nupkg.sha512",
         "superutility.nuspec"
       ]
     },
@@ -5762,7 +5762,7 @@
       "Microsoft.NETCore.App >= 2.0.0",
       "MongoDB.Driver >= 2.8.0",
       "RabbitMQ.Client >= 5.1.0",
-      "SuperUtility"
+      "SuperUtility >= 1.0.1"
     ]
   },
   "packageFolders": {
@@ -5828,7 +5828,7 @@
           },
           "SuperUtility": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[1.0.1, )"
           }
         },
         "imports": [

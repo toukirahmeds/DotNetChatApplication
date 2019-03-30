@@ -8,10 +8,13 @@ namespace ChatMainServer{
         private string message;
         private DateTime messageTime;
 
-        public ChatMessage(ObjectId userId, string message){
+        private string messageType;
+
+        public ChatMessage(ObjectId userId, string message, string messageType = "TEXT"){
             this.userId = userId;
             this.message =  message;
             this.messageTime = DateTime.Now;
+            this.messageType = messageType;
         }
 
         public ObjectId UserId{
@@ -27,6 +30,11 @@ namespace ChatMainServer{
         public DateTime MessageTime{
             get { return this.messageTime;}
             set { this.messageTime = value;}
+        }
+
+        public string MessageType{
+            get { return this.messageType;}
+            set { this.messageType = value;}
         }
     }
 }

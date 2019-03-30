@@ -19,7 +19,7 @@ namespace ChatMainServer{
             if(foundUser != null){
                 throw (new UserAuthenticationException("User Already Exists"));
             }else{
-                User user = new User(username, Utility.GetHash256String(password)  /* SuperUtilityClass.GetHash256String(password)*/ );
+                User user = new User(username, /*Utility.GetHash256String(password)*/  SuperUtilityClass.GetHash256String(password) );
                 BsonDocument bsonUser= user.ToBsonDocument();
                 Configs.userCollection.InsertOne(bsonUser);
                 return user;
@@ -34,7 +34,7 @@ namespace ChatMainServer{
             }).FirstOrDefault();
             if(user != null){
                 User foundUser = BsonSerializer.Deserialize<User>(user);
-                if( Utility.CheckHashMatch( password, foundUser.Password ) ){
+                if( /* Utility.CheckHashMatch( password, foundUser.Password )*/ SuperUtilityClass.CheckHashMatch( password, foundUser.Password ) ){
                     foundUser.IsLoggedIn = true;
                     UserController.UpdateUserInfo(foundUser);
                     Console.WriteLine("User Signing In Successful");

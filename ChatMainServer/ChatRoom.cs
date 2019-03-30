@@ -36,8 +36,8 @@ namespace ChatMainServer{
         }
 
         
-        public bool AddChatMessage( ObjectId userId, string message ){
-            this.chatHistory.Add( new ChatMessage( userId, message) );
+        public bool AddChatMessage( ObjectId userId, string message, string messageType ){
+            this.chatHistory.Add( new ChatMessage( userId, message, messageType) );
             return true;
         }
 

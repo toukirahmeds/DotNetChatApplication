@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "8041db21982110d190690f41624213152e9938e1"
+    "signature": "b1c30471cac6517de5774ec1a636957c07b7ce78"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,7 +12,7 @@
           "AWSSDK.S3": "3.3.101",
           "MongoDB.Driver": "2.8.0",
           "RabbitMQ.Client": "5.1.0",
-          "SuperUtility": "1.0.0"
+          "SuperUtility": "1.0.1"
         },
         "runtime": {
           "ChatMainServer.dll": {}
@@ -271,11 +271,11 @@
           }
         }
       },
-      "SuperUtility/1.0.0": {
+      "SuperUtility/1.0.1": {
         "runtime": {
           "lib/netstandard2.0/SuperUtility.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
@@ -1224,12 +1224,12 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
     },
-    "SuperUtility/1.0.0": {
+    "SuperUtility/1.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hLGiVFf3pK0RvNTfZ8WHJLGxf3f1RE8QrjMlbzSJZFXx5bkDMx3AHIratpGPMPfdSNPfCAWkPxxfwWiCfvuTBg==",
-      "path": "superutility/1.0.0",
-      "hashPath": "superutility.1.0.0.nupkg.sha512"
+      "sha512": "sha512-AovXtSR+dXqDR7Dv6vviOXzbrXfDhUx2Nk1UYHo54m+lmj2P0dYhJbAIDxMWKoyD47oZEt1zN1O9lZSahh/8rw==",
+      "path": "superutility/1.0.1",
+      "hashPath": "superutility.1.0.1.nupkg.sha512"
     },
     "System.Buffers/4.4.0": {
       "type": "package",
