@@ -1,0 +1,50 @@
+			 ***********CHAT HISTORY FOR : toukirahmeds*****************
+----------- CHAT ROOM : dragon
+
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-30T17:04:32.885Z
+			Message Type : TEXT
+			Message Text : hiii
+			===========================================
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-30T17:06:48.579Z
+			Message Type : TEXT
+			Message Text : file:b.txt
+			===========================================
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-30T17:07:06.217Z
+			Message Type : TEXT
+			Message Text : ello
+			===========================================
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-30T17:40:47.212Z
+			Message Type : TEXT
+			Message Text : happy new yer
+			===========================================
+										===========================================
+										SENDER : katyPerry
+										Message Time : 2019-03-30T17:42:03.478Z
+										Message Type : TEXT
+										Message Text : file:b.txt
+										===========================================
+			===========================================
+			SENDER : toukirahmeds
+			Message Time : 2019-03-31T04:00:36.184Z
+			Message Type : TEXT
+			Message Text : hi
+			===========================================
+
+
+
+
+----------- CHAT ROOM : slsn
+
+
+
+
+
+			 **********END OF CHAT HISTORY****************
