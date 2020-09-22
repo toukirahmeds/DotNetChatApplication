@@ -18,8 +18,8 @@ namespace ChatMainServer{
 
         public static IConnection rabbitConnection;
 
-        public static string S3AccessKey = "AKIAXJJI56KALITBRA3H";
-        public static string S3SecretKey = "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";
+        public static string S3AccessKey = "[S3_ACCESS_KEY]";
+        public static string S3SecretKey = "[S3_SECRET_KEY]";
         public static AmazonS3Config S3Config;
         public static AmazonS3Client S3Client;
 
