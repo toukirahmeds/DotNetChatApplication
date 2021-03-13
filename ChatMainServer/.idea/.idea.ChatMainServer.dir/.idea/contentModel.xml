@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_.19.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="AbstractPerson.cs" t="Include" />
+      <e p="Authentication.cs" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="ChatMainServer.csproj" t="IncludeRecursive" />
+      <e p="ChatMessage.cs" t="Include" />
+      <e p="ChatRoom.cs" t="Include" />
+      <e p="ChatRoomController.cs" t="Include" />
+      <e p="ChatUser.cs" t="Include" />
+      <e p="Configs.cs" t="Include" />
+      <e p="CustomExceptions.cs" t="Include" />
+      <e p="DOCUMENTS" t="Include">
+        <e p="b.txt" t="Include" />
+        <e p="shuvo" t="Include">
+          <e p="history_2019_3_30_15:04:31.9627727.txt" t="Include" />
+        </e>
+        <e p="toukir" t="Include">
+          <e p="history.txt" t="Include" />
+        </e>
+        <e p="toukirahmeds" t="Include">
+          <e p="history.txt" t="Include" />
+          <e p="history_2019_3.txt" t="Include" />
+          <e p="history_2019_3_30_13:33:09.4871659.txt" t="Include" />
+          <e p="history_2019_3_30_15:02:00.0498520.txt" t="Include" />
+          <e p="history_2019_3_30_15:08:56.1911696.txt" t="Include" />
+          <e p="history_2019_3_30_22:38:30.2287085.txt" t="Include" />
+          <e p="history_2019_3_30_22:39:07.1674283.txt" t="Include" />
+          <e p="history_2019_3_30_22:40:52.9052393.txt" t="Include" />
+          <e p="history_2019_3_30_22:42:54.6451792.txt" t="Include" />
+          <e p="history_2019_3_30_22:44:01.1650646.txt" t="Include" />
+          <e p="history_2019_3_30_22:44:31.4321441.txt" t="Include" />
+          <e p="history_2019_3_30_22:45:06.3067025.txt" t="Include" />
+          <e p="history_2019_3_30_22:45:51.5368613.txt" t="Include" />
+          <e p="history_2019_3_30_22:49:39.5537212.txt" t="Include" />
+          <e p="history_2019_3_30_22:51:09.0069926.txt" t="Include" />
+          <e p="history_2019_3_30_22:54:26.8233354.txt" t="Include" />
+          <e p="history_2019_3_30_22:56:42.0282405.txt" t="Include" />
+          <e p="history_2019_3_30_22:58:40.9611918.txt" t="Include" />
+          <e p="history_2019_3_30_23:07:18.3126694.txt" t="Include" />
+          <e p="history_2019_3_30_23:11:04.6489712.txt" t="Include" />
+        </e>
+      </e>
+      <e p="DOWNLOADS" t="Include">
+        <e p="shuvo" t="Include">
+          <e p="b.txt" t="Include" />
+          <e p="history.txt" t="Include" />
+        </e>
+        <e p="toukirahmeds" t="Include">
+          <e p="b.txt" t="Include" />
+        </e>
+      </e>
+      <e p="IPersonInterface.cs" t="Include" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="netcoreapp2.0" t="Include">
+            <e p="ChatMainServer.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Program.cs" t="Include" />
+      <e p="RabbitMQController.cs" t="Include" />
+      <e p="S3BucketController.cs" t="Include" />
+      <e p="User.cs" t="Include" />
+      <e p="UserController.cs" t="Include" />
+      <e p="Utility.cs" t="Include" />
+    </e>
+  </component>
+</project>
