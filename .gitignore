@@ -1,0 +1,9 @@
+ChatClient/bin/
+ChatClient/obj/
+
+ChatMainServer/.idea
+ChatMainServer/bin/
+ChatMainServer/obj/
+
+SuperUtility/bin/
+SuperUtility/obj/
